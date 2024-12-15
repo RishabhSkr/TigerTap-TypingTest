@@ -46,7 +46,6 @@ export default function RootLayout({
         <link rel="icon" href="/TypingSpeed.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" sizes="180x180" href="/TypingSpeed.svg" />
       </head>
-      <title>TigerTap-Speed Typing Test</title>
       <body className={inter.className}>  
         <Providers>
           {children}
