@@ -50,7 +50,9 @@ export const metadata: Metadata = {
     apple: '/TypingSpeed.svg',
   },
   verification: {
-    google: 'drrcZuE9G-HLKwZ0XD6fM0irW3itW7yaVaOrX5W8CrQ',
+    other: {
+      'google-site-verification': 'drrcZuE9G-HLKwZ0XD6fM0irW3itW7yaVaOrX5W8CrQ',
+    },
   },
   alternates: {
     canonical: 'https://tigertap.vercel.app',
