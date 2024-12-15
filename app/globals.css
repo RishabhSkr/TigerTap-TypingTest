@@ -1,0 +1,691 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 350 100% 98.5%; /* Soft pink background */
+    --foreground: 350 50% 20%;
+ 
+    --muted: 350 40% 96.1%;
+    --muted-foreground: 350 20% 45%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 215 20.2% 65.1%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+ 
+    --ring: 217.2 32.6% 17.5%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.typing-text {
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  @apply transition-colors duration-200;
+}
+
+/* Add styles for the input placeholder */
+.typing-text::placeholder {
+  @apply text-muted-foreground/50;
+}
+
+.dark .typing-text {
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+  transition: width 0.3s ease-in-out;
+  @apply h-full bg-gradient-to-r from-primary/80 to-primary;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Modern UI Additions */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.dark .gradient-bg {
+  background: linear-gradient(-45deg, #2a1f3d, #1a1a2e, #16213e, #1f1f1f);
+  background-size: 400% 400%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Modern Input Styling */
+.modern-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.dark .modern-input {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .modern-input:focus {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modern UI Enhancements */
+.typing-container {
+  @apply relative overflow-hidden rounded-xl border border-border/50 backdrop-blur-sm;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark .typing-container {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.stats-card {
+  @apply bg-background/50 backdrop-blur-sm border border-border/50 rounded-xl p-4;
+  animation: slideUp 0.5s ease-out;
+}
+
+.control-panel {
+  @apply bg-background/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 mb-6;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Enhanced Input Styles */
+.typing-input {
+  @apply bg-background/50 backdrop-blur-sm border-t border-border/50;
+  transition: all 0.3s ease;
+}
+
+/* Add a pulsing effect for the input before typing starts */
+.typing-input:not(:focus):not([value=""]) {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.typing-input:focus {
+  @apply ring-2 ring-primary/20;
+  animation: none;
+}
+
+/* Progress Bar Enhancement */
+.progress-wrapper {
+  @apply h-2 bg-background/50 backdrop-blur-sm rounded-full overflow-hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Animations */
+.button-effect {
+  @apply relative overflow-hidden;
+  transition: all 0.3s ease;
+}
+
+.button-effect:hover {
+  transform: translateY(-2px);
+}
+
+.button-effect:active {
+  transform: translateY(0px);
+}
+
+.bg-doodle {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,50 Q40,20 50,50 T80,50' fill='none' stroke='rgba(0,0,0,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  animation: doodleFloat 30s linear infinite;
+}
+
+.dark .bg-doodle {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,50 Q40,20 50,50 T80,50' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Remove or comment out the grid-related styles */
+/* .bg-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+} */
+
+@keyframes doodleFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 400px;
+  }
+}
+
+.animated-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    rgba(248, 250, 252, 1) 0%,
+    rgba(241, 245, 249, 1) 50%,
+    rgba(248, 250, 252, 1) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+.dark .animated-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(2, 6, 23, 1) 0%,
+    rgba(3, 7, 18, 1) 50%,
+    rgba(2, 6, 23, 1) 100%
+  );
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.floating-dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: floatingDotsAnim 10s linear infinite;
+}
+
+.dark .floating-dots {
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+@keyframes floatingDotsAnim {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Add these new typing-themed animations */
+.typing-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: 
+    linear-gradient(120deg, rgba(226, 232, 240, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%);
+  overflow: hidden;
+}
+
+.dark .typing-background {
+  background: 
+    linear-gradient(120deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.8) 100%);
+}
+
+/* Floating characters animation */
+.floating-chars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dark .floating-chars {
+  color: rgba(255, 255, 255, 0.03);
+}
+
+.char-particle {
+  position: absolute;
+  animation: charFloat 15s linear infinite;
+  opacity: 0;
+}
+
+@keyframes charFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Typing cursor effect */
+.cursor-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: cursorPulse 2s ease-in-out infinite;
+}
+
+.dark .cursor-grid {
+  background-image: 
+    linear-gradient(90deg, rgba(199, 210, 254, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(199, 210, 254, 0.03) 1px, transparent 1px);
+}
+
+@keyframes cursorPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Enhanced Result Graph Colors - Updated with vibrant colors */
+.result-chart {
+  .wpm-bar {
+    fill: #4f46e5; /* More vibrant indigo */
+    opacity: 1;
+    filter: drop-shadow(0 4px 6px rgba(79, 70, 229, 0.2));
+  }
+  
+  .accuracy-bar {
+    fill: #059669; /* More vibrant emerald */
+    opacity: 1;
+    filter: drop-shadow(0 4px 6px rgba(5, 150, 105, 0.2));
+  }
+}
+
+.dark .result-chart {
+  .wpm-bar {
+    fill: #6366f1; /* Brighter indigo for dark mode */
+    filter: drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3));
+  }
+  
+  .accuracy-bar {
+    fill: #10b981; /* Brighter emerald for dark mode */
+    filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.3));
+  }
+}
+
+/* Chart Grid and Label Styles */
+.result-chart {
+  .recharts-cartesian-grid-horizontal line,
+  .recharts-cartesian-grid-vertical line {
+    stroke: rgba(0, 0, 0, 0.1);
+  }
+
+  .recharts-text {
+    fill: var(--foreground);
+    font-weight: 500;
+  }
+
+  .recharts-tooltip-wrapper {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+  }
+}
+
+.dark .result-chart {
+  .recharts-cartesian-grid-horizontal line,
+  .recharts-cartesian-grid-vertical line {
+    stroke: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Enhanced Background Animations */
+.typing-animation-bg {
+  @apply absolute inset-0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(251, 207, 232, 0.2) 0%, transparent 50%);
+  animation: bgPulse 15s ease-in-out infinite;
+}
+
+.dark .typing-animation-bg {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+}
+
+/* Animated keyboard keys */
+.keyboard-keys {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.3;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 45px, rgba(99, 102, 241, 0.05) 45px, rgba(99, 102, 241, 0.05) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 45px, rgba(16, 185, 129, 0.05) 45px, rgba(16, 185, 129, 0.05) 50px);
+  animation: keyboardMove 30s linear infinite;
+}
+
+/* Floating typing symbols */
+.typing-symbols {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.typing-symbol {
+  position: absolute;
+  font-family: 'Fira Code', monospace;
+  opacity: 0;
+  animation: symbolFloat 3s ease-in-out infinite;
+}
+
+/* Matrix-like rain effect */
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.rain-drop {
+  position: absolute;
+  color: rgba(99, 102, 241, 0.3);
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  animation: rainDrop 2s linear infinite;
+}
+
+.dark .rain-drop {
+  color: rgba(99, 102, 241, 0.2);
+}
+
+/* New Animation Keyframes */
+@keyframes bgPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes keyboardMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes symbolFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rainDrop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Updated Animation Styles */
+.typing-animation-bg {
+  @apply absolute inset-0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+  animation: bgPulse 15s ease-in-out infinite;
+}
+
+.keyboard-keys {
+  @apply absolute inset-0;
+  background-size: 50px 50px;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 45px, rgba(99, 102, 241, 0.05) 45px, rgba(99, 102, 241, 0.05) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 45px, rgba(16, 185, 129, 0.05) 45px, rgba(16, 185, 129, 0.05) 50px);
+  animation: keyboardMove 30s linear infinite;
+}
+
+.typing-symbol {
+  @apply fixed text-2xl;
+  animation: symbolFloat 3s ease-in-out forwards;
+}
+
+.rain-drop {
+  @apply fixed text-sm font-mono;
+  color: rgba(99, 102, 241, 0.3);
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+  animation: rainDrop 2s linear forwards;
+}
+
+/* Dark mode variants */
+.dark .typing-animation-bg {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+.dark .rain-drop {
+  color: rgba(99, 102, 241, 0.2);
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+}
+
+/* Updated keyframes */
+@keyframes bgPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes keyboardMove {
+  to {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes symbolFloat {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rainDrop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Additional Animation Styles */
+.keyboard-keys.active {
+  opacity: 0.5;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.typing-symbol {
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.rain-drop {
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  text-shadow: 0 0 8px currentColor;
+}
+
