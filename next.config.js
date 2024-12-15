@@ -35,6 +35,14 @@ const nextConfig = {
     serverActions: {
       enabled: true
     }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/drrcZuE9G-HLKwZ0XD6fM0irW3itW7yaVaOrX5W8CrQ.html',
+        destination: '/api/google-verification'
+      }
+    ]
   }
 }
 

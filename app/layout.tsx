@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://tigertap.vercel.app'),
   title: {
-    default: 'TigerTap - Speed Typing Test | Check Your Typing Speed',
+    default: 'Best Free Online Typing Test | TigerTap Speed Test',
     template: '%s | TigerTap'
   },
-  description: 'Free online typing test to check your typing speed (WPM), accuracy, and skill level. Practice typing with customizable texts and detailed analytics.',
-  keywords: 'typing test, typing speed, WPM, words per minute, typing practice, typing skills, typing accuracy, online typing test, typing speed test',
+  description: 'Improve your typing speed and accuracy with TigerTap\'s free online typing test. Get instant WPM scores, accuracy metrics, and detailed analytics to track your progress.',
+  keywords: 'typing test, typing speed test, WPM calculator, online typing test, typing practice, typing skills, typing accuracy test, free typing test, typing speed checker, TigerTap',
   authors: [{ name: 'Rishabh Sonkar' }],
   robots: {
     index: true,
@@ -50,7 +50,9 @@ export const metadata: Metadata = {
     apple: '/TypingSpeed.svg',
   },
   verification: {
-    google: 'drrcZuE9G-HLKwZ0XD6fM0irW3itW7yaVaOrX5W8CrQ',
+    other: {
+      'google-site-verification': 'drrcZuE9G-HLKwZ0XD6fM0irW3itW7yaVaOrX5W8CrQ',
+    },
   },
   alternates: {
     canonical: 'https://tigertap.vercel.app',

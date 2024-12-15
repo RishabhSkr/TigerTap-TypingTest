@@ -22,59 +22,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+import { SENTENCES } from '../lib/sentences' // Add this import
 
-const SENTENCES = [
-  'She sells seashells by the seashore.',
-  'How much wood would a woodchuck chuck if a woodchuck could chuck wood?',
-  'Peter Piper picked a peck of pickled peppers.',
-  'Betty Botter bought some butter but she said the butter’s bitter.',
-  'I scream, you scream, we all scream for ice cream!',
-  'The quick onyx goblin jumps over the lazy dwarf.',
-  'Grumpy wizards make toxic brew for the evil queen and jack.',
-  'Fortune favors the bold who venture into unknown lands.',
-  'A journey of a thousand miles begins with a single step.',
-  'Knowledge speaks, but wisdom listens.',
-  'The quick brown fox jumps over the lazy dog.',
-  'Pack my box with five dozen liquor jugs.',
-  'How vexingly quick daft zebras jump!',
-  'The five boxing wizards jump quickly.',
-  'Jackdaws love my big sphinx of quartz.',
-  'Two driven jocks help fax my big quiz.',
-  'The jay, pig, fox, zebra, and my wolves quack!',
-  'Sphinx of black quartz, judge my vow.',
-  'Waltz, nymph, for quick jigs vex Bud.',
-  'Glib jocks quiz nymph to vex dwarf.',
-  'Bright vixens jump dozy fowl quack.',
-  'Quick zephyrs blow, vexing daft Jim.',
-  'Sex-charged fop blew my junk TV quiz.',
-  'How quickly daft jumping zebras vex!',
-  'Two driven jocks help fax my big quiz.',
-  'Quick, Baz, get my woven flax jodhpurs!',
-  'Now fax quiz Jack! my brave ghost pled.',
-  'Five quacking zephyrs jolt my wax bed.',
-  'The five boxing wizards jump quickly.',
-  'Jackdaws love my big sphinx of quartz.',
-  'Crazy Fredrick bought many very exquisite opal jewels.',
-  'We promptly judged antique ivory buckles for the next prize.',
-  'The wizard quickly jinxed the gnomes before they vaporized.',
-  'A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.',
-  'Jaded zombies acted quaintly but kept driving their oxen forward.',
-  'The quick onyx goblin jumps over the lazy dwarf.',
-  'Grumpy wizards make toxic brew for the evil queen and jack.',
-  'Sympathizing would fix Quaker objectives.',
-  'Back in June we delivered oxygen equipment of the same size.',
-  'Just keep examining every low bid quoted for zinc etchings.',
-  'My faxed joke won a pager in the cable TV quiz show.',
-  'Six big devils from Japan quickly forgot how to waltz.',
-  'times counted swiftly by the quick judge.',
-  'Punctuation: should we use commas, semicolons; or colons?',
-  'Mixing letters, numbers , and symbols is challenging!',
-  'Do  taxis quickly provide a safe journey? Yes!',
-  'The  boxing wizards jump quickly at noon.',
-  'Five hexing wizard bots jump quickly.',
-  'Sixty zippers were picked from the woven jute bag.',
-  'Amazingly, few discotheques provide jukeboxes.',
-]
+// Remove the hardcoded SENTENCES array since we're importing it
 
 const SYMBOLS = '!@#$%^&*()_+-=[]{}|;:,.<>?'
 const NUMBERS = '0123456789'
@@ -88,6 +38,7 @@ const TIME_OPTIONS = [
 ]
 
 export default function TypingTest() {
+  const { theme } = useTheme() // Add this line at the top with other state declarations
   const [mounted, setMounted] = useState(false)
   const [text, setText] = useState('')
   const [userInput, setUserInput] = useState('')
@@ -222,13 +173,19 @@ export default function TypingTest() {
   ) => {
     try {
       const value = e.target.value;
-      // Start timer on first keypress
-      if (!startTime && value.length === 1) {
+      // Start test on ANY keystroke when not active
+      if (!startTime || timeLeft === null) {
         setStartTime(Date.now());
         setTimeLeft(selectedTime);
-        setText(generateText()); // Generate new text when starting
+        setUserInput(value);
+        setWPM(0);
+        setAccuracy(100);
+        setWordCount(0);
+        setCharCount(0);
+        setProgressData([]);
+      } else {
+        setUserInput(value);
       }
-      setUserInput(value);
     } catch (err) {
       console.error('Error handling input:', err);
       setError('An error occurred while processing your input. Please try again.');
@@ -237,11 +194,6 @@ export default function TypingTest() {
 
   useEffect(() => {
     if (!mounted) return
-
-    if (userInput.length === 1 && !startTime) {
-      setStartTime(Date.now())
-      setTimeLeft(selectedTime)
-    }
 
     let correctChars = 0
     let words = 0
@@ -272,9 +224,7 @@ export default function TypingTest() {
   }, [
     userInput,
     text,
-    startTime,
     calculateStats,
-    selectedTime,
     generateText,
     typingMode,
     mounted
@@ -292,7 +242,7 @@ export default function TypingTest() {
     setIsFinished(false)
     setError(null)
     setProgressData([])
-    setText(generateText())
+    setText(generateText()) // Only generate new text on restart
     if (textRef.current) {
       textRef.current.style.transform = 'translateX(0)'
     }
@@ -427,8 +377,8 @@ export default function TypingTest() {
                 className={
                   index < userInput.length
                     ? char === userInput[index]
-                      ? 'text-green-500'
-                      : 'text-red-500'
+                      ? 'text-emerald-700 dark:text-emerald-400' // Updated color
+                      : 'text-red-700 dark:text-red-400' // Updated color
                     : ''
                 }
               >
@@ -463,8 +413,8 @@ export default function TypingTest() {
                   className={
                     index < userInput.length
                       ? char === userInput[index]
-                        ? 'text-green-500'
-                        : 'text-red-500'
+                        ? 'text-emerald-700 dark:text-emerald-400' // Updated color
+                        : 'text-red-700 dark:text-red-400' // Updated color
                       : ''
                   }
                 >
@@ -494,7 +444,7 @@ export default function TypingTest() {
       
       {/* Results */}
       {isFinished && (
-        <div className="mt-8">
+        <div className="mt-8 mb-20"> {/* Add bottom margin */}
           <h2 className="text-2xl font-bold mb-4">Test Results</h2>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="bg-muted p-4 rounded-lg">
@@ -506,76 +456,114 @@ export default function TypingTest() {
               <p className="text-3xl font-bold">{accuracy}%</p>
             </div>
           </div>
-          <div className="h-64 mb-8">
+          <div className="h-64 mb-16"> {/* Increase bottom margin */}
             <ResponsiveContainer width="100%" height="100%">
               <BarChart 
                 data={progressData} 
                 className="result-chart"
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                margin={{ top: 20, right: 30, left: 20, bottom: 25 }} // Increase bottom margin
+                barGap={0} // Reduce gap between bar groups
+                barSize={30} // Make bars thicker
               >
                 <CartesianGrid 
                   strokeDasharray="3 3" 
-                  strokeOpacity={0.2} 
+                  strokeOpacity={0.3} 
+                  strokeWidth={2}
+                  stroke={theme === 'dark' ? '#374151' : '#E5E7EB'}
                   horizontal={true}
                   vertical={false}
                 />
                 <XAxis
                   dataKey="time"
+                  stroke={theme === 'dark' ? '#E5E7EB' : '#374151'}
                   label={{
                     value: 'Time (s)',
-                    position: 'insideBottomRight',
-                    offset: -5,
-                    style: { fontWeight: 600 }
+                    position: 'insideBottom', // Change position
+                    offset: -15, // Adjust offset
+                    style: { 
+                      fontWeight: 600,
+                      fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                    }
                   }}
-                  tick={{ fontSize: 12, fontWeight: 500 }}
+                  tick={{ 
+                    fontSize: 12, 
+                    fontWeight: 500,
+                    fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                  }}
                 />
                 <YAxis
                   yAxisId="left"
+                  stroke={theme === 'dark' ? '#E5E7EB' : '#374151'}
                   label={{ 
                     value: 'WPM', 
                     angle: -90, 
                     position: 'insideLeft',
-                    style: { fontWeight: 600 }
+                    style: { 
+                      fontWeight: 600,
+                      fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                    }
                   }}
-                  tick={{ fontSize: 12, fontWeight: 500 }}
+                  tick={{ 
+                    fontSize: 12, 
+                    fontWeight: 500,
+                    fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                  }}
                 />
                 <YAxis
                   yAxisId="right"
                   orientation="right"
+                  stroke={theme === 'dark' ? '#E5E7EB' : '#374151'}
                   label={{
                     value: 'Accuracy (%)',
                     angle: 90,
                     position: 'insideRight',
-                    style: { fontWeight: 600 }
+                    style: { 
+                      fontWeight: 600,
+                      fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                    }
                   }}
-                  tick={{ fontSize: 12, fontWeight: 500 }}
+                  tick={{ 
+                    fontSize: 12, 
+                    fontWeight: 500,
+                    fill: theme === 'dark' ? '#E5E7EB' : '#374151'
+                  }}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backgroundColor: theme === 'dark' ? '#1F2937' : 'rgba(255, 255, 255, 0.95)',
                     border: 'none',
                     borderRadius: '8px',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    padding: '12px'
+                    padding: '12px',
+                    color: theme === 'dark' ? '#E5E7EB' : '#374151'
                   }}
-                  itemStyle={{ fontWeight: 500 }}
-                  labelStyle={{ fontWeight: 600, marginBottom: '4px' }}
+                  itemStyle={{ 
+                    fontWeight: 500,
+                    color: theme === 'dark' ? '#E5E7EB' : '#374151'
+                  }}
+                  labelStyle={{ 
+                    fontWeight: 600, 
+                    marginBottom: '4px',
+                    color: theme === 'dark' ? '#E5E7EB' : '#374151'
+                  }}
                 />
                 <Bar
                   yAxisId="left"
                   dataKey="wpm"
                   name="WPM"
-                  className="wpm-bar"
+                  fill={theme === 'dark' ? '#818CF8' : '#4F46E5'}
+                  opacity={0.9}
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={50}
+                  maxBarSize={60}
                 />
                 <Bar
                   yAxisId="right"
                   dataKey="accuracy"
                   name="Accuracy"
-                  className="accuracy-bar"
+                  fill={theme === 'dark' ? '#34D399' : '#10B981'}
+                  opacity={0.9}
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={50}
+                  maxBarSize={60}
                 />
               </BarChart>
             </ResponsiveContainer>
