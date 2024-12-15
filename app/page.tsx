@@ -6,6 +6,10 @@ import ThemeSwitcher from '../components/ThemeSwitcher'
 import Footer from '../components/Footer'
 import { initAnimations } from '../lib/initAnimations'
 
+// Add metadata configuration
+export const fetchCache = 'force-no-store'
+export const dynamic = 'force-dynamic'
+
 export default function Home() {
   const [mounted, setMounted] = useState(false)
 
