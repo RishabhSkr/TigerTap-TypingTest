@@ -36,6 +36,16 @@
     --ring: 215 20.2% 65.1%;
  
     --radius: 0.5rem;
+
+    /* Chart and UI colors - Light mode */
+    .wpm-bar {
+      fill: #4f46e5;    /* Indigo */
+      opacity: 1;
+    }
+    .accuracy-bar {
+      fill: #059669;    /* Emerald */
+      opacity: 1;
+    }
   }
  
   .dark {
@@ -67,6 +77,16 @@
     --destructive-foreground: 0 85.7% 97.3%;
  
     --ring: 217.2 32.6% 17.5%;
+
+    /* Chart and UI colors - Dark mode */
+    .wpm-bar {
+      fill: #6366f1;    /* Brighter indigo */
+      opacity: 1;
+    }
+    .accuracy-bar {
+      fill: #10b981;    /* Brighter emerald */
+      opacity: 1;
+    }
   }
 }
  
@@ -687,5 +707,41 @@
   user-select: none;
   will-change: transform;
   text-shadow: 0 0 8px currentColor;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
+}
+
+/* Add dark mode styles */
+.dark .bg-gradient-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(79, 70, 229, 0.9) 0%,
+    rgba(139, 92, 246, 0.9) 50%,
+    rgba(79, 70, 229, 0.9) 100%
+  );
 }
 
