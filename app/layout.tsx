@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://tigertap.vercel.app'),
   title: {
-    default: 'Best Free Online Typing Test | TigerTap Speed Test',
+    default: 'TigerTap | Speed Typing Test - Check Your Typing Speed',
     template: '%s | TigerTap'
   },
   description: 'Improve your typing speed and accuracy with TigerTap\'s free online typing test. Get instant WPM scores, accuracy metrics, and detailed analytics to track your progress.',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'TigerTap - Speed Typing Test',
+    title: 'TigerTap | Speed Typing Test - Check Your Typing Speed',
     description: 'Test and improve your typing speed with our modern typing test application',
     type: 'website',
     url: 'https://tigertap.vercel.app/',
@@ -41,13 +41,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TigerTap - Speed Typing Test',
+    title: 'TigerTap | Speed Typing Test - Check Your Typing Speed',
     description: 'Test and improve your typing speed with our modern typing test application',
     images: ['/TypingSpeed.svg'],
   },
   icons: {
-    icon: '/TypingSpeed.svg',
-    apple: '/TypingSpeed.svg',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   verification: {
     other: {
@@ -56,6 +57,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://tigertap.vercel.app',
+  },
+  other: {
+    'application-name': 'TigerTap',
+    'apple-mobile-web-app-title': 'TigerTap'
   },
 }
 
@@ -66,7 +71,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <meta name="application-name" content="TigerTap" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>
         <script
           type="application/ld+json"
@@ -74,10 +82,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "TigerTap - Speed Typing Test",
+              "name": "TigerTap",
+              "alternateName": "TigerTap Speed Typing Test",
               "description": "Free online typing test to check your typing speed (WPM), accuracy, and skill level.",
               "url": "https://tigertap.vercel.app",
               "applicationCategory": "EducationalApplication",
+              "browserRequirements": "Requires JavaScript. Requires HTML5.",
               "offers": {
                 "@type": "Offer",
                 "price": "0",
